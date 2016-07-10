@@ -1,5 +1,5 @@
 # Chap
-Piping different chat platforms, make every chat rooms the same.
+Piping different chat platforms, make every chat rooms connected.
 
 You wanna use Slack but your team want to use Telegram for communicating?   
 You loves Slack but your team think Telegram is better?  
