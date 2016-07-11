@@ -12,8 +12,9 @@ hook.on "/chatPlatform/error/sendMsg", (platformName, err) ->
     global.chap.logger.info "debug", err
 
 hook.on "/chatPlatform/receivedMsg", (platformName, message) ->
+    # console.log message
     global.chap.formatters[platformName.toLowerCase()] message
-        .then (result) ->
-            global.chap.logger.info result
+        .then (resObj) ->
+            return global.chap.forwarder resObj
 
 module.exports = hook

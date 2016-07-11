@@ -122,9 +122,20 @@ eventIdentifiers =
 
         return deferred.promise
 
+returnInfo = (message, cb) ->
+    source = message.chat.id
+
+    return cb message
+        .then (result) ->
+            return {
+                result: result
+                source: "Telegram:#{source}"
+            }
+
 module.exports = (message) ->
     deferred   = Q.defer()
     result     = ""
+    source     = message.chat.id
 
     if !global.chap.config.general.debug && message.chat.type != "group" && message.chat.type != "supergroup"
         deferred.reject()
@@ -132,7 +143,7 @@ module.exports = (message) ->
 
     for identifier, cb of eventIdentifiers
         if message.hasOwnProperty identifier
-            deferred.resolve cb message
+            deferred.resolve returnInfo message, cb
             return deferred.promise
 
     if !message.text
@@ -142,6 +153,6 @@ module.exports = (message) ->
         deferred.reject()
         return deferred.promise
 
-    deferred.resolve eventIdentifiers.pureChat message
+    deferred.resolve returnInfo message, eventIdentifiers.pureChat
 
     return deferred.promise

@@ -16,14 +16,18 @@ messageHandler = (message) ->
     global.chap.eventHook.emit "/chatPlatform/receivedMsg", "Telegram", message
 
 sendMessageErrorHandler = (err) ->
+    console.log err
     global.chap.eventHook.emit "/chatPlatform/error/sendMsg", "Telegram", err
 
 sendMessage = (target, text) ->
+    console.log "123"
+    console.log target
+    console.log text
     bot.sendMessage
         chat_id:    target
         parse_mode: "html"
         text:       text
-        disable_web_page_preview: "true"
+        # disable_web_page_preview: "true"
     .catch sendMessageErrorHandler
 
 bot.on 'message'        , messageHandler

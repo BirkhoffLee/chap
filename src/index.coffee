@@ -1,8 +1,10 @@
 requireDir                = require 'require-dir'
+modulesDir                = "#{__dirname}/modules/"
 
 global.chap               = {}
-global.chap.eventHook     = require "#{__dirname}/modules/eventHook.coffee"
-global.chap.config        = requireDir "#{__dirname}/config", recurse: true
-global.chap.logger        = require "#{__dirname}/modules/logger.coffee"
-global.chap.chatPlatforms = requireDir "#{__dirname}/modules/chatPlatforms"
-global.chap.formatters    = requireDir "#{__dirname}/modules/formatters"
+global.chap.eventHook     = require modulesDir + "eventHook.coffee"
+global.chap.config        = require(modulesDir + "loadConfig.coffee")(requireDir)
+global.chap.logger        = require modulesDir + "logger.coffee"
+global.chap.forwarder     = require modulesDir + "forwarder.coffee"
+global.chap.chatPlatforms = requireDir modulesDir + "chatPlatforms"
+global.chap.formatters    = requireDir modulesDir + "formatters"
